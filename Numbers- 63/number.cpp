@@ -9,7 +9,7 @@ int x, y;
 void display() 
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3d((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+	glColor3f((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
 	//Number 6
 	glBegin(GL_POLYGON);
 	glVertex2f(-0.1, 0.1);
@@ -42,7 +42,7 @@ void display()
 	glVertex2f(-0.1, 0.8);
 	glEnd();
 	//Number 3
-	glColor3d((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+	glColor3f((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
 	glBegin(GL_POLYGON);
 	glVertex2f(0.5, 0.1);
 	glVertex2f(0.4, 0.1);

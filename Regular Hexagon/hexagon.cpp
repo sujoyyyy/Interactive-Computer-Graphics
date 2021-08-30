@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<GL/glut.h>
 #include<math.h>
-int xx1, xx2, yy1, yy2;
+
 int sign(int x)
 {
 	if (x > 0) return 1;
@@ -39,21 +39,13 @@ void drawline(int X1, int Y1, int X2, int Y2)
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0, 0.0, 0.0);
-	drawline(350, 163, 250, 163);
-	drawline(250, 163, 200, 250);
-	drawline(200, 250, 250, 337);
-	drawline(250, 337, 350, 337);
-	drawline(350, 337, 400, 250);
-	drawline(400, 250, 350, 163);
-	/*
-	drawline(100, 100, 220, 100);
-	drawline(40, 200, 100, 100);
-	drawline(40, 200, 100, 300);
-	drawline(100, 300, 220, 300);
-	drawline(220, 300, 280, 200);
-	drawline(280, 200, 220, 100);
-	*/
+	glColor3f(1.0, 1.0, 0.0);
+	drawline(398, 112, 198, 112);
+	drawline(198, 112, 98, 285);
+	drawline(98, 285, 198, 459);
+	drawline(198, 459, 398, 459);
+	drawline(398, 459, 498, 285);
+	drawline(498, 285, 398, 112);
 }
 void init(void)
 {
@@ -67,7 +59,7 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(640, 480);
+	glutInitWindowSize(640,480);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("DDA Line");
 	init();

@@ -1,7 +1,8 @@
-#include<Windows.h>
+#include<bits/stdc++.h>
 #include<stdio.h>
 #include<GL/glut.h>
 #include<math.h>
+using namespace std;
 int xx1, xx2, yy1, yy2;
 int sign(int x)
 {
@@ -9,8 +10,13 @@ int sign(int x)
 	if (x < 0) return -1;
 	return 0;
 }
-void drawline(int X1, int Y1, int X2, int Y2)
+double drawline(int X1, int Y1, int X2, int Y2)
 {
+	double err=0;
+	double m,c;
+	m=(double)(Y2-Y1)/(X2-X1);
+	c= Y1- m*X1;
+	//cout<<"Slope "<<m<<", Intercept "<<c<<endl;
 	double x, y, dx, dy, length;
 	int i;
 	dx = (double)abs(X2 - X1);
@@ -19,20 +25,26 @@ void drawline(int X1, int Y1, int X2, int Y2)
 		length = dx;
 	else
 		length = dy;
-	dx = (double)((X2 - X1) / length);
-	dy = (double)((Y2 - Y1) / length);
-	x = (double)X1 + 0.5 * sign(X1);
-	y = (double)Y1 + 0.5 * sign(Y1);
-	for (int i = 1; i < length; i++)
+	dx = (X2 - X1) / length;
+	dy = (Y2 - Y1) / length;
+	x = (double)X1;
+	y = (double)Y1; 
+	i = 1;
+	while (i <= length)
 	{
 		glBegin(GL_POINTS);
+		double tempy= m*round(x)+c;
+		err+= (tempy-round(y))*(tempy-round(y));
 		glVertex2i(x, y);
 		glEnd();
 		glFlush();
-		x += dx;
-		y += dy;
+		x = x + dx;
+		y = y + dy;
+		i = i + 1;
 	}
+	double tot=err/length;
 	glFlush();
+	return tot;
 }
 void fill_triangle(float X1, float Y1, float X2, float Y2, float X3, float Y3, int r, int g, int b, int a)
 {
@@ -58,11 +70,12 @@ void fill_rectangle(int X1, int Y1, int X2, int Y2, float r, float g, float b, f
 }
 void display(void)
 {
+	double Error=0;
 	glClear(GL_COLOR_BUFFER_BIT);
 	// Triangle
-	drawline(200, 300, 400, 300);
-	drawline(200, 300, 300, 473);
-	drawline(300, 473, 400, 300);
+	Error+= drawline(200, 300, 400, 300);
+	Error+= drawline(200, 300, 300, 473);
+	Error+= drawline(300, 473, 400, 300);
 	// Big Rectangle
 	drawline(200, 300, 400, 300);
 	drawline(200, 300, 200, 100);
@@ -90,6 +103,7 @@ void display(void)
 	fill_rectangle(275, 200, 325, 100, 1, 1, 1, 1);
 	fill_rectangle(220, 255, 255, 220, 1, 1, 1, 1);
 	fill_rectangle(345, 255, 380, 220, 1, 1, 1, 1);
+	cout<<"Total MSE-  "<<Error<<endl;
 }
 void init(void)
 {

@@ -4,7 +4,6 @@
 #include<GL/glut.h>
 #include<math.h>
 using namespace std;
-int xx1, xx2, yy1, yy2;
 int sign(int x)
 {
 	if (x > 0) return 1;
@@ -110,6 +109,7 @@ void fill_rectangle(int X1, int Y1, int X2, int Y2, float r, float g, float b, f
 }
 void display(void)
 {
+	clock_t start = clock();
 	double Error=0;
 	glClear(GL_COLOR_BUFFER_BIT);
 	// Triangle
@@ -143,7 +143,9 @@ void display(void)
 	fill_rectangle(275, 200, 325, 100, 1, 1, 1, 1);
 	fill_rectangle(220, 255, 255, 220, 1, 1, 1, 1);
 	fill_rectangle(345, 255, 380, 220, 1, 1, 1, 1);
-
+	clock_t end = clock();
+    double elapsed = double(end - start)/CLOCKS_PER_SEC;
+	cout<<"Time taken-	"<<elapsed<<endl;
 	cout<<"Total MSE-  "<<Error<<endl;
 }
 void init(void)

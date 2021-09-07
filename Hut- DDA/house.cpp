@@ -49,27 +49,24 @@ double drawline(int X1, int Y1, int X2, int Y2)
 void fill_triangle(float X1, float Y1, float X2, float Y2, float X3, float Y3, int r, int g, int b, int a)
 {
 	glColor4f(r, g, b, a);
-	float i = Y3;
-	float j = 0;
-	while (i >= Y2)
+	while (X1 <= X2)
 	{
-		drawline(X3 - j, i, X3 + j, i);
-		i--;
-		j += 0.566;
+		drawline(X3, Y3, X1, Y1);
+		X1++;
 	}
 }
 void fill_rectangle(int X1, int Y1, int X2, int Y2, float r, float g, float b, float a)
 {
 	glColor4f(r, g, b, a);
-	int i = Y1;
-	while (i >=Y2)
+	while (Y1 >=Y2)
 	{
-		drawline(X1, i, X2, i);
-		i--;
+		drawline(X1, Y1, X2, Y1);
+		Y1--;
 	}
 }
 void display(void)
 {
+	clock_t start = clock();
 	double Error=0;
 	glClear(GL_COLOR_BUFFER_BIT);
 	// Triangle
@@ -103,6 +100,9 @@ void display(void)
 	fill_rectangle(275, 200, 325, 100, 1, 1, 1, 1);
 	fill_rectangle(220, 255, 255, 220, 1, 1, 1, 1);
 	fill_rectangle(345, 255, 380, 220, 1, 1, 1, 1);
+	clock_t end = clock();
+    double elapsed = double(end - start)/CLOCKS_PER_SEC;
+	cout<<"Time taken-	"<<elapsed<<endl;
 	cout<<"Total MSE-  "<<Error<<endl;
 }
 void init(void)

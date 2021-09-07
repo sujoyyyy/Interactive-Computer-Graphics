@@ -1,4 +1,5 @@
 //#include<Windows.h>
+#include <time.h>
 #include<stdio.h>
 #include<GL/glut.h>
 #include<math.h>
@@ -49,6 +50,7 @@ double drawline(int X1, int Y1, int X2, int Y2)
 }
 void display(void)
 {
+	clock_t start = clock();
 	double Error=0;
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 0.0);
@@ -58,6 +60,9 @@ void display(void)
 	Error+= drawline(198, 459, 398, 459);
 	Error+= drawline(398, 459, 498, 285);
 	Error+= drawline(498, 285, 398, 112);
+	clock_t end = clock();
+    double elapsed = double(end - start)/CLOCKS_PER_SEC;
+	cout<<"Time taken-	"<<elapsed<<endl;
 	cout<<"Total MSE-  "<<Error<<endl;
 }
 void init(void)
@@ -74,7 +79,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(640,480);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("DDA Line");
+	glutCreateWindow("DDA Hexagon");
 	init();
 	glClear(GL_COLOR_BUFFER_BIT);
 	glutDisplayFunc(display);

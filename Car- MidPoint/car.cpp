@@ -14,10 +14,11 @@ void plot(int x, int y)
 }
 void midPointCircleAlgo(int xc, int yc, int r)
 {
+	//2nd octant
 	int x = 0;
 	int y = r;
 	float decision = 5/4 - r;
-	plot(x, y);
+	plot(x+xc, y+yc);
 
 	while (y > x)
 	{
@@ -145,7 +146,6 @@ void display(void)
 	drawline(166,750,489,750);
 	drawline(489,750,633,529);
 	drawline(633,529,166,529);
-
 	//Wheel Left
 	midPointCircleAlgo(-200,100,100);
 	//Wheel Right

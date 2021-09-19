@@ -11,41 +11,49 @@ void drawArc(int cx, int cy, int r, int startAngle, int endAngle)
 {   
     int d = 1 - r;
     int x = 0; int y = r;
-    int ycal = floor(y/sqrt(2)) - 1;
 
-    while(y != ycal)
+    while(y >x)
     {
         	glBegin(GL_POINTS);
-            glColor3ub( 100,100,112);
+            glColor3ub(100,100,112);
             int alpha;
-            alpha = 90 - (atan( (float)y/x )*180)/PI;
+            alpha = 90 - (atan( (float)y/x )*180)/PI; //angle made with origin
 
+            //first octant
             if(90 - alpha >= startAngle && 90 - alpha <= endAngle)
                 glVertex2i(cx + x, cy + y);
 
+            //second
             if(alpha >= startAngle && alpha <= endAngle)
                 glVertex2i(cx + y, cy + x);
+            
+            //third    
+            if(180 - alpha >= startAngle && 180 - alpha <= endAngle)
+                glVertex2i(cx - y, cy + x);
+            
+            //fourth octant
+            if(90 + alpha >= startAngle && 90 + alpha <= endAngle)
+                glVertex2i(cx - x, cy + y);
 
+            //fifth octant    
+            if(270 - alpha >= startAngle && 270 - alpha <= endAngle)
+                glVertex2i(cx - x, cy - y);
+            
+            //sixth
+            if(180 + alpha >= startAngle && 180 + alpha <= endAngle)
+                glVertex2i(cx - y, cy - x);
+            
+            //seventh octant
             if(360 - alpha >= startAngle && 360 - alpha <= endAngle)
                 glVertex2i(cx + y, cy - x);
 
+            //eighth octant
             if(270 + alpha >= startAngle && 270 + alpha <= endAngle)
                 glVertex2i(cx + x, cy - y);
-                
-            if(270 - alpha >= startAngle && 270 - alpha <= endAngle)
-                glVertex2i(cx - x, cy - y);
-                
-            if(180 + alpha >= startAngle && 180 + alpha <= endAngle)
-                glVertex2i(cx - y, cy - x);
 
-            if(180 - alpha >= startAngle && 180 - alpha <= endAngle)
-                glVertex2i(cx - y, cy + x);
-                
-            if(90 + alpha >= startAngle && 90 + alpha <= endAngle)
-                glVertex2i(cx - x, cy + y);
+
                 
         glEnd();
-
         x = x + 1;
         if(d < 0)
         {
@@ -64,8 +72,9 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 	int alpha,beta;
-	alpha =90;
-	beta=180;
+    //alpha and beta have to processed accordingly
+	alpha = 0;
+	beta = 90;
     drawArc(0,0,800, alpha, beta);
     glFlush();
 }

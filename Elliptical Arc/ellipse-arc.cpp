@@ -165,7 +165,6 @@ void med(int rx, int ry, int xc, int yc, float r, float g, float b, int alpha, i
 
 void arc()
 {
-
     glClear(GL_COLOR_BUFFER_BIT);
     srand(time(0));
     float r = (float)((rand() % 2));

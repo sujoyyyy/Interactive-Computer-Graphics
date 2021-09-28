@@ -16,7 +16,7 @@ void MidpointEllipseAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
     int y = ry;
     int dy = 2 * rx * rx * y;
     int dx = 2 * ry * ry * x;
-
+    glPointSize(3);
     // region 1
     while(dx <= dy)
     {
@@ -76,6 +76,7 @@ void MidpointEllipseAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
 
 void ParametricEllipseAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
 {
+    glPointSize(3);
     GLfloat theta;
     glBegin(GL_POINTS);
     glColor3ub(rr, rg, rb);
@@ -93,6 +94,7 @@ void GeneralEllipseAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
     int y = ry;
     int dy = 2 * rx * rx * y;
     int dx = 2 * ry * ry * x;
+    glPointSize(3);
 
     while(y >= 0)
     {
@@ -135,10 +137,10 @@ void drawEllipse()
     //MidpointEllipseAlgo(cx,cy,rx,ry,rr,rg,rb);
 
     // using parametric form
-    //ParametricEllipseAlgo(cx,cy,rx,ry,rr,rg,rb);
+    ParametricEllipseAlgo(cx,cy,rx,ry,rr,rg,rb);
 
     // using general equation
-    GeneralEllipseAlgo(cx,cy,rx,ry,rr,rg,rb);
+    //GeneralEllipseAlgo(cx,cy,rx,ry,rr,rg,rb);
 
     glFlush();
 }

@@ -99,8 +99,6 @@ void med(int rx, int ry, int xc, int yc, float r, float g, float b, int alpha, i
         if ((a >= s1 && a <= e1) || (a >= s2 && a <= e2))
             glVertex2f(-x + xc, -y + yc);
 
-        // Checking and updating value of
-        // decision parameter based on algorithm
         if (d1 < 0)
         {
             x++;
@@ -143,8 +141,7 @@ void med(int rx, int ry, int xc, int yc, float r, float g, float b, int alpha, i
         if ((a >= s1 && a <= e1) || (a >= s2 && a <= e2))
             glVertex2f(-x + xc, -y + yc);
 
-        // Checking and updating parameter
-        // value based on algorithm
+
         if (d2 > 0)
         {
             y--;

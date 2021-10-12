@@ -119,7 +119,7 @@ void mid_point_parabola(int x0, int y0, float a, float r, float g, float b)
 void draw_parabola()
 {
 	srand(time(0));
-	focus =rand() % 230;
+	focus =rand() % 130;
 	h = rand()%100;
 	k= rand()%100;
 	float r, g, b;
@@ -127,7 +127,7 @@ void draw_parabola()
 	g = (float)((rand() % 9)) / 8;
 	b = (float)((rand() % 9)) / 8;
 	general_parabola(h, k,focus, r, g, b);
-	parametric_parabola(h, k, focus, r, g, b);
+	//parametric_parabola(h, k, focus, r, g, b);
 	//mid_point_parabola(h, k, focus, r, g, b);
 	glFlush();
 }

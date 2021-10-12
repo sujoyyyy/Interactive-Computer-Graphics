@@ -121,10 +121,9 @@ void drawEllipse()
     int rb = rand()%256;
     int rx = rand()%150+200;
     int ry = rand()%150+200;
-    int cx = 0;
-    int cy = 0;
+    int cx = rand()%60;
+    int cy = rand()%40;
     glClear(GL_COLOR_BUFFER_BIT);
-    
     // midpoint
     MidpointAlgo(cx,cy,rx,ry,rr,rg,rb);
 

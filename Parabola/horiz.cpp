@@ -24,13 +24,13 @@ void general_parabola(float x0, float y0, float a, float r, float g, float b)
 		glEnd();
 		if(dx<dy)
 		{
-			x=x+1;
-			y=(x*x)/(4*a);
+			y=y+1;
+			x = sqrt(4*a*(y));
 		}
 		else
 		{
-			y=y+1;
-			x = sqrt(4*a*(y));
+			x=x+1;
+			y=(x*x)/(4*a);
 		}
 		dy = 2*x;
 		dx = 4*a;
@@ -121,7 +121,7 @@ void mid_point_parabola(int x0, int y0, float a, float r, float g, float b)
 void draw_parabola()
 {
 	srand(time(0));
-	focus =rand() % 230;
+	focus =rand() % 130;
 	h = rand()%100;
 	k= rand()%100;
 	float r, g, b;

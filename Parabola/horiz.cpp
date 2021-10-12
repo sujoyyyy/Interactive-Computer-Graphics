@@ -4,9 +4,38 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-
 float k, h, focus;
+void drawline(int X1, int Y1, int X2, int Y2)
+{
+	//This algorithm is the generalised DDA Algorithm
+	glColor3f(0.875,0.875,0.875);
+	glPointSize(1);
+	double x, y, dx, dy, length;
+	int i;
+	dx = (double)abs(X2 - X1);
+	dy = (double)abs(Y2 - Y1);
+	if (dx >= dy) //This condition is true implies that the slope of the line m<=1
+		length = dx;
+	else
+		length = dy;
 
+	//Please note that the value of length will be dx if m<=1 and dy if m>1
+	dx = (X2 - X1) / length;
+	dy = (Y2 - Y1) / length;
+	x = (double)X1;
+	y = (double)Y1; 
+	i = 1;
+	while (i <= length)
+	{
+		glBegin(GL_POINTS);
+		glVertex2i(x, y);
+		glEnd();
+		x = x + dx;
+		y = y + dy;
+		i = i + 1;
+	}
+	glEnd();
+}
 void general_parabola(float x0, float y0, float a, float r, float g, float b)
 {
 	glColor3f(r,g,b);
@@ -16,7 +45,7 @@ void general_parabola(float x0, float y0, float a, float r, float g, float b)
 	int dy = 2*x;
 	int dx = 4*a;
 
-	while(y<=400)
+	while(y<=400 && x<=500)
 	{
 		glBegin(GL_POINTS);
 		glVertex2i(x+x0, y+y0);
@@ -128,6 +157,8 @@ void draw_parabola()
 	r = (float)((rand() % 9)) / 8;
 	g = (float)((rand() % 9)) / 8;
 	b = (float)((rand() % 9)) / 8;
+	drawline(0,-600,0,600);
+	drawline(-600,0,600,0);
 	general_parabola(h, k,focus, r, g, b);
 	//parametric_parabola(h, k, focus, r, g, b);
 	//mid_point_parabola(h, k, focus, r, g, b);

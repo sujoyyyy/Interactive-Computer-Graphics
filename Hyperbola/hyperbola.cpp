@@ -5,7 +5,37 @@
 #include <time.h>
 using namespace std;
 #define PI 3.14159265359
+void drawline(int X1, int Y1, int X2, int Y2)
+{
+	//This algorithm is the generalised DDA Algorithm
+	glColor3f(0.875,0.875,0.875);
+	glPointSize(1);
+	double x, y, dx, dy, length;
+	int i;
+	dx = (double)abs(X2 - X1);
+	dy = (double)abs(Y2 - Y1);
+	if (dx >= dy) //This condition is true implies that the slope of the line m<=1
+		length = dx;
+	else
+		length = dy;
 
+	//Please note that the value of length will be dx if m<=1 and dy if m>1
+	dx = (X2 - X1) / length;
+	dy = (Y2 - Y1) / length;
+	x = (double)X1;
+	y = (double)Y1; 
+	i = 1;
+	while (i <= length)
+	{
+		glBegin(GL_POINTS);
+		glVertex2i(x, y);
+		glEnd();
+		x = x + dx;
+		y = y + dy;
+		i = i + 1;
+	}
+	glEnd();
+}
 void MidpointAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
 {
     // decision parameter for region 1
@@ -75,7 +105,7 @@ void ParametricAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
         for(int i = 0; i <= 360; i++)
         {
             theta = i*PI/180;
-            glVertex2f(cx + rx*(1/cos(theta)),cy + ry*(sin(theta)/cos(theta)));
+            glVertex2i(cx + rx*(1/cos(theta)),cy + ry*(sin(theta)/cos(theta)));
         }
     glEnd();
 }
@@ -105,7 +135,7 @@ void GeneralAlgo(int cx, int cy, int rx, int ry, int rr, int rg, int rb)
         }
         else
         {
-            y = y - 1;
+            y = y + 1;
             x = round(sqrt((-(rx*rx*ry*ry) + (rx*rx*(y)*(y)))/(ry*ry)));
         }
         dy = 2 * ry * ry * x;
@@ -124,6 +154,8 @@ void drawEllipse()
     int cx = rand()%60;
     int cy = rand()%40;
     glClear(GL_COLOR_BUFFER_BIT);
+    drawline(0,-600,0,600);
+	drawline(-600,0,600,0);
     // midpoint
     MidpointAlgo(cx,cy,rx,ry,rr,rg,rb);
 

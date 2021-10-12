@@ -1,6 +1,6 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
-#include<time.h>
+#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -159,9 +159,9 @@ void draw_parabola()
 	b = (float)((rand() % 9)) / 8;
 	drawline(0,-600,0,600);
 	drawline(-600,0,600,0);
-	general_parabola(h, k,focus, r, g, b);
+	//general_parabola(h, k,focus, r, g, b);
 	//parametric_parabola(h, k, focus, r, g, b);
-	//mid_point_parabola(h, k, focus, r, g, b);
+	mid_point_parabola(h, k, focus, r, g, b);
 	glFlush();
 }
 

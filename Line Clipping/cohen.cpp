@@ -5,11 +5,13 @@
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
+
 typedef struct coordinate
 {
-int x,y;
-char code[4];
+    int x,y;
+    char code[4];
 }PT;
+
 int xmin= -300;
 int xmax=300;
 int ymin=-200;

@@ -159,7 +159,7 @@ void draw_parabola()
 	drawline(-600,0,600,0);
 	//general_parabola(h, k,focus, r, g, b);
 	//parametric_parabola(h, k, focus, r, g, b);
-	//mid_point_parabola(h, k, focus, r, g, b);
+	mid_point_parabola(h, k, focus, r, g, b);
 	glFlush();
 }
 

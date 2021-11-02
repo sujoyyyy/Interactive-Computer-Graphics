@@ -56,11 +56,11 @@ void drawline(int X1, int Y1, int X2, int Y2)
 PT setcode(PT p) //for setting the 4 bit code
 {
     PT ptemp;
-    if(p.y<ymin)
+    if(p.y>ymax)
         ptemp.code[0]='1'; //Top
     else
         ptemp.code[0]='0';
-    if(p.y>ymax)
+    if(p.y<ymin)
         ptemp.code[1]='1'; //Bottom
     else
         ptemp.code[1]='0';
@@ -120,9 +120,9 @@ PT resetendpt(PT p1,PT p2)
             return (temp);
     }
     if(p1.code[0]=='1')
-        y=ymin;
-    if(p1.code[1]=='1')
         y=ymax;
+    if(p1.code[1]=='1')
+        y=ymin;
     if((p1.code[0]=='1') || (p1.code[1]=='1'))
     {
         m=(float)(p2.y-p1.y)/(p2.x-p1.x);
@@ -147,7 +147,7 @@ void clip_lines()
 	drawline(-300,-200,-300,200);
 	drawline(300,-200,300,200);
 	glColor3f(0,1,0);
-    int n=10;
+    int n=50;
     for (int i = 0; i < n; i++)
 	{
         PT p1,p2,p3,p4;

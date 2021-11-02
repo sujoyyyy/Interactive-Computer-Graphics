@@ -48,14 +48,14 @@ void clip_points()
 	drawline(-300,-200,-300,200);
 	drawline(300,-200,300,200);
 	glColor3f(1,0,0);
-	int n=1000;
+	int n=10000;
 	int x,y;
 	for (int i = 0; i < n; i++)
 	{
 	
 		x=rand()%900-455;
 		y=rand()%780-410;
-		if(x<=xmax && x>=xmin && y<=ymax && y>=ymin)
+		if(x<xmax && x>xmin && y<ymax && y>ymin)
 		{
 			glBegin(GL_POINTS);
 			glVertex2i(x, y);

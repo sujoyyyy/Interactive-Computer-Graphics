@@ -48,7 +48,7 @@ void clip_points()
 	drawline(-300,-200,-300,200);
 	drawline(300,-200,300,200);
 	glColor3f(1,0,0);
-	int n=10000;
+	int n=100;
 	int x,y;
 	for (int i = 0; i < n; i++)
 	{

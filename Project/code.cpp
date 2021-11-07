@@ -1,10 +1,10 @@
 #include<GL/glut.h>
+#include<math.h>
+#include<string.h>
 #define dx 32
 #define dy 32
 #define maxrow 25
 #define maxcol 25
-#include<math.h>
-#include<string.h>
 
 double x11, y11;
 int i11=0;
@@ -37,16 +37,14 @@ void init()
 {
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 }
-void rwall()   //right
+void rwall()   
 {
-
     glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-    float ambient[] = { 0.9,0.3,0.5,1 };  //set rgb color
+    float ambient[] = { 0.9,0.3,0.5,1 };  //set RGB color
     float light_pos[] = { 27,8,2,3 };
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -61,13 +59,13 @@ void rwall()   //right
 }
 void mwall() //middle
 {
-       glMatrixMode(GL_PROJECTION);
+    glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-       glMatrixMode(GL_MODELVIEW);
-       glLoadIdentity();
-       float ambient[] = { 0.7,0.8,0.7,1 };
-       float light_pos[] = { 27,8,2,3 };
-       glEnable(GL_LIGHTING);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    float ambient[] = { 0.7,0.8,0.7,1 };
+    float light_pos[] = { 27,8,2,3 };
+    glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
@@ -75,18 +73,18 @@ void mwall() //middle
 	glRotatef(10, -1, 0, 0);
 	glRotatef(11.7, 0, 0, -1);
 	glTranslatef(0.1, tmw, 0.1);
-       glScalef(0.5, 1.2, 0.04);
+    glScalef(0.5, 1.2, 0.04);
 	glutSolidCube(1);
 }
 void lwall()  //left
 {
-       glMatrixMode(GL_PROJECTION);
+    glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-       glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-     	float ambient[] = { 0.7,0.7,0.1,1 };
-       float light_pos[] = { 27,8,2,3 };
-       glEnable(GL_LIGHTING);
+    float ambient[] = { 0.7,0.7,0.1,1 };
+    float light_pos[] = { 27,8,2,3 };
+    glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
@@ -94,7 +92,7 @@ void lwall()  //left
 	glRotatef(10, -1, 0, 0);
 	glRotatef(11.7, 0, 0, -1);
 	glTranslatef(-0.2, tlw, -0.2);
-       glScalef(0.4, 1.2, 0.01);
+    glScalef(0.4, 1.2, 0.01);
 	glutSolidCube(1);
 }
 void floor()
@@ -104,9 +102,9 @@ void floor()
 	gluPerspective(40, 1, 4, 20);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-       gluLookAt(0.09, -18.0, 3.0, 0.0, 0.0, 2.5, 0.0, 1.0, 0.0);
+    gluLookAt(0.09, -18.0, 3.0, 0.0, 0.0, 2.5, 0.0, 1.0, 0.0);
 	glTranslatef(-8, -10, -2);
-       glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHTING);
 	glColor3f(0.2,0.4,0.4);
 	glScalef(0.02, 0.02, 0.02);
 	glLineWidth(2.0);
@@ -125,126 +123,123 @@ void floor()
 			glVertex2f(x[i + 1], y[j]);
 			glEnd();
 		}
-
 	}
 }
 void gamma() //bottom;
 {
 
-       glDisable(GL_LIGHTING);
-    	glMatrixMode(GL_PROJECTION);
-       glLoadIdentity();
-       double w = glutGet(GLUT_WINDOW_WIDTH);
-       double h = glutGet(GLUT_WINDOW_HEIGHT);
+    glDisable(GL_LIGHTING);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    double w = glutGet(GLUT_WINDOW_WIDTH);
+    double h = glutGet(GLUT_WINDOW_HEIGHT);
 	double ar = w / h;
 	glOrtho(-360 * ar, 360 * ar, -120, 120, -1, 1);
-       glMatrixMode(GL_MODELVIEW);
-       glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 	glDisable(GL_LIGHTING);
 	glTranslatef(z11,-45,0);
 	glPointSize(5);
 	glColor3f(1.0, 1.0, 0.0);
 	GLfloat qa=0;
 	for (GLfloat i11 = -1400; i11<=qa+10000; i11 = i11+4)
-{
-       glBegin(GL_POINTS);
-       glVertex2f(x11,y11);
-       x11 = -(float)i11;
-       if(i11>=9995 && i11 <= 9998) qa = 10000;
-       else if(i11>=19995 && i11 <= 19998) qa = 20000;
-       else if(i11>=29995 && i11 <= 29998) qa = 30000;
-       else if(i11>=39995 && i11<= 39998) qa = 40000;
-       else if(i11>=49995 && i11<=49998) qa = 60000;
-	y11 = 10.0 * sin(i11 *(35.284 / 360.0));
-	glEnd();
-}
-z11+=2;
+    {
+        glBegin(GL_POINTS);
+        glVertex2f(x11,y11);
+        x11 = -(float)i11;
+        if(i11>=9995 && i11 <= 9998) qa = 10000;
+        else if(i11>=19995 && i11 <= 19998) qa = 20000;
+        else if(i11>=29995 && i11 <= 29998) qa = 30000;
+        else if(i11>=39995 && i11<= 39998) qa = 40000;
+        else if(i11>=49995 && i11<=49998) qa = 60000;
+        y11 = 10.0 * sin(i11 *(35.284 / 360.0));
+        glEnd();
+    }
+    z11+=2;
 }
 void beta()  //middle
 {
-
-
- 	glMatrixMode(GL_PROJECTION);
-       glLoadIdentity();
-       double w = glutGet(GLUT_WINDOW_WIDTH);
-       double h = glutGet(GLUT_WINDOW_HEIGHT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    double w = glutGet(GLUT_WINDOW_WIDTH);
+    double h = glutGet(GLUT_WINDOW_HEIGHT);
 	double ar = w / h;
 	glOrtho(-360 * ar, 360 * ar, -120, 120, -1, 1);
-       glMatrixMode(GL_MODELVIEW);
-       glLoadIdentity();
-       glColor3f(1,0,0.7);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glColor3f(1,0,0.7);
 	glTranslatef(z22,5,0);
 	glPointSize(5);
 	glColor3f(0.6, 0.3, 0.8);
 	GLfloat wa=0;
-	for (GLfloat i22 = -1400; i22<=wa+10000; i22 = i22+4)
-{
-       glBegin(GL_POINTS);
-       glVertex2f(x22,y22);
-       x22 = -(float)i22;
-       if(i22>=9995 && i22 <= 9998) wa = 10000;
-       else if(i22>=19995 && i22 <= 19998) wa = 20000;
-       else if(i22>=29995 && i22 <= 29998) wa = 30000;
-       else if(i22>=39995 && i22<= 39998) wa = 40000;
-       else if(i22>=49995 && i22<=49998) wa = 60000;
-	y22 = 5.0 * sin(i22 *(35.284 / 360.0)); //increase 1st increase height,increase 2nd decrease width
-	glEnd();
-}
-z22+=1.4;
+    for (GLfloat i22 = -1400; i22<=wa+10000; i22 = i22+4)
+    {
+        glBegin(GL_POINTS);
+        glVertex2f(x22,y22);
+        x22 = -(float)i22;
+        if(i22>=9995 && i22 <= 9998) wa = 10000;
+        else if(i22>=19995 && i22 <= 19998) wa = 20000;
+        else if(i22>=29995 && i22 <= 29998) wa = 30000;
+        else if(i22>=39995 && i22<= 39998) wa = 40000;
+        else if(i22>=49995 && i22<=49998) wa = 60000;
+	    y22 = 5.0 * sin(i22 *(35.284 / 360.0)); //increase 1st increase height,increase 2nd decrease width
+	    glEnd();
+    }
+    z22+=1.4;
 }
 void alpha()  //top
 {
 
  	glMatrixMode(GL_PROJECTION);
-       glLoadIdentity();
-       double w = glutGet(GLUT_WINDOW_WIDTH);
-       double h = glutGet(GLUT_WINDOW_HEIGHT);
+    glLoadIdentity();
+    double w = glutGet(GLUT_WINDOW_WIDTH);
+    double h = glutGet(GLUT_WINDOW_HEIGHT);
 	double ar = w / h;
 	glOrtho(-360 * ar, 360 * ar, -120, 120, -1, 1);
-       glMatrixMode(GL_MODELVIEW);
-       glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 	glTranslatef(z33,40,0);
 	glPointSize(5);
 	glColor3f(0.9, 0., 0.4);
 	for (GLfloat i33 = -1400; i33<=80200; i33 = i33+4)
-{
-       glBegin(GL_POINTS);
-       glVertex2f(x33,y33);
-       x33 = -(float)i33;
-	y33 = 5.0 * sin(i33 *(15.284 / 360.0));  //increase 1st increase height,increase 2nd decrease width
-	glEnd();
-}
-z33+=1.6;
+    {
+        glBegin(GL_POINTS);
+        glVertex2f(x33,y33);
+        x33 = -(float)i33;
+	    y33 = 5.0 * sin(i33 *(15.284 / 360.0));  //increase 1st increase height,increase 2nd decrease width
+	    glEnd();
+    }
+    z33+=1.6;
 }
 
 void molecules()
 {
-       glMatrixMode(GL_MODELVIEW);
-       glLoadIdentity();
-       float ambient[] = { 0.7,0.1,0.1,1 };
-       float light_pos[] = { 2,8,2,3 };
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-       glTranslatef(-0.7,0.3,0.075);
-       glutSolidSphere(0.08,100,100);
-       float ambient1[] = { 0.1,0.3,1.0,1 };
-       float light_pos1[] = { 27,8,2,3 };
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient1);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_pos1);
-       glTranslatef(0,-0.3,0);
-       glutSolidSphere(0.06,100,100);
-       float ambient2[] = { 0.1,1.0,0.1,1 };
-       float light_pos2[] = { 27,8,2,3 };
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient2);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_pos2);
-       glTranslatef(0,-0.4,0);
-       glutSolidSphere(0.09,100,100);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    float ambient[] = { 0.7,0.1,0.1,1 };
+    float light_pos[] = { 2,8,2,3 };
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+    glTranslatef(-0.7,0.3,0.075);
+    glutSolidSphere(0.08,100,100);
+    float ambient1[] = { 0.1,0.3,1.0,1 };
+    float light_pos1[] = { 27,8,2,3 };
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient1);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos1);
+    glTranslatef(0,-0.3,0);
+    glutSolidSphere(0.06,100,100);
+    float ambient2[] = { 0.1,1.0,0.1,1 };
+    float light_pos2[] = { 27,8,2,3 };
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient2);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos2);
+    glTranslatef(0,-0.4,0);
+    glutSolidSphere(0.09,100,100);
 }
 void specialkeyboard(int key,int x,int y)
 {
@@ -252,56 +247,55 @@ void specialkeyboard(int key,int x,int y)
        {
        case GLUT_KEY_DOWN:
               {
-                            tmw=-0.1;
-                            break;
+                tmw=-0.1;
+                break;
               }
        case GLUT_KEY_LEFT:
               {
-                  tlw=-0.1;
-                  break;
+                tlw=-0.1;
+                break;
 
               }
        case GLUT_KEY_RIGHT:
               {
-                       trw=0.05;
-                       break;
+                trw=0.05;
+                break;
               }
        case GLUT_KEY_END:
               {
-                     trw=1.45;
-                     break;
+                trw=1.45;
+                break;
               }
        case GLUT_KEY_PAGE_DOWN:
               {
-                     tmw=1.4;
-                     break;
+                tmw=1.4;
+                break;
 
               }
        case GLUT_KEY_PAGE_UP:
               {
-                     tlw=1.4;
-                     break;
+                tlw=1.4;
+                break;
               }
-
        }
 }
 void display()
 {
 
-       glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 	double w = glutGet(GLUT_WINDOW_WIDTH);
-       double h = glutGet(GLUT_WINDOW_HEIGHT);
-       glViewport(200,0,w,h);
+    double h = glutGet(GLUT_WINDOW_HEIGHT);
+    glViewport(200,0,w,h);
 	gamma();
 	if(tlw!=-0.1)
       {
-             glViewport(200,0,w,h);
-             alpha();
+        glViewport(200,0,w,h);
+        alpha();
       }
       else
        {
-              glViewport(200,0,w-1000,h);
-              alpha();
+        glViewport(200,0,w-1000,h);
+        alpha();
        }
 
       if(tmw!=-0.1)

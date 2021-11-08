@@ -365,8 +365,8 @@ void display()
               glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,rp[iqa]);
        }
 	floor();
-
 	glFlush();
+    glutSwapBuffers();
 
 }
 void update(int value)

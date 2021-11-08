@@ -14,29 +14,6 @@ void scanline_Filling(int x1, int y1, int x2, int y2, int x3, int y3, int x4, in
 void edge_Detect(int x1, int y1, int x2, int y2);
 void draw_pixel(int x, int y);
 
-void myInit()
-{
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(0, 500, 0, 500);
-    glMatrixMode(GL_MODELVIEW);
-}
-
-int main(int argc, char **argv)
-{
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    
-    glutInitWindowPosition(0, 0);
-    glutInitWindowSize(500, 500);
-    glutCreateWindow("Program 4");
-    
-    myInit();
-    
-    glutDisplayFunc(myDisplay);
-    glutMainLoop();
-    return 0;
-}
 
 void myDisplay()
 {
@@ -107,4 +84,26 @@ void draw_pixel(int x, int y)   // Plot a point at (x, y)
     glBegin(GL_POINTS);
     glVertex2i(x, y);
     glEnd();
+}
+
+
+void myInit()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, 500, 0, 500);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowPosition(0, 0);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("Scanline Polyfill");
+    myInit();
+    glutDisplayFunc(myDisplay);
+    glutMainLoop();
+    return 0;
 }

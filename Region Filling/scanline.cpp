@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<GL/glut.h>
 #include<GL/freeglut.h>
-
 int left_edge[500], right_edge[500];
 int x1 = 100, y1 = 250;
 int x2 = 250, y2 = 100;

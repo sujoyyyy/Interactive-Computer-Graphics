@@ -2,14 +2,11 @@
 #include<GL/glut.h>
 #include<GL/freeglut.h>
 int left_edge[500], right_edge[500];
-int x1 = 100, y1 = 250;
-int x2 = 250, y2 = 100;
-int x3 = 400, y3 = 250;
-int x4 = 250, y4 = 400;
-
+int xfirst[11]={-500,-300,-300,-500,-500};
+int yfirst[11]={300,300,200,200,300};
 
 void myDisplay();
-void scanline_Filling(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);
+void scanline_Filling(int xfirst[11], int yfirst[11]);
 void edge_Detect(int x1, int y1, int x2, int y2);
 void draw_pixel(int x, int y);
 
@@ -17,24 +14,54 @@ void draw_pixel(int x, int y);
 void myDisplay()
 {
     glClear(GL_COLOR_BUFFER_BIT);
-    scanline_Filling(x1, y1, x2, y2, x3, y3, x4, y4);
+    scanline_Filling(xfirst,yfirst);
     glFlush();
 }
 
-void scanline_Filling(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+void scanline_Filling(int xfirst[11], int yfirst[11])
 {
-    for (int i = 0; i < 500; i++)
+    for (int i = 0; i < 400; i++)
     {
-        left_edge[i] = 500;     // Intial value
+        left_edge[i] = 300;     // Intial value
         right_edge[i] = 0;
     }
+    int count = 0,x1,y1,x2,y2;
+    int i=0;
+	while(i<4)
+	{
+		x1=xfirst[i];
+		x2=xfirst[i+1];
+		y1=yfirst[i];
+		y2=yfirst[i+1];
+		glBegin(GL_LINES);
+		glVertex2i( x1, y1);
+		glVertex2i( x2, y2);
+		glEnd();
+        edge_Detect(x1,y1,x2,y2);
+		//glFlush();
+		i++;
+	}
+    edge_Detect(xfirst[4],yfirst[4],xfirst[0],yfirst[0]);
+    int xsecond[5]={-200,-100,-100,-200,-200};
+	int ysecond[5]={300,300,-200,-200,300};
+    i=0;
+    while(i<4)
+	{
+		x1=xsecond[i];
+		x2=xsecond[i+1];
+		y1=ysecond[i];
+		y2=ysecond[i+1];
+		glBegin(GL_LINES);
+		glVertex2i( x1, y1);
+		glVertex2i( x2, y2);
+		glEnd();
+        edge_Detect(x1,y1,x2,y2);
+		glFlush();
+		i++;
+	}
+    edge_Detect(xsecond[4],ysecond[4],xsecond[0],ysecond[0]);
     
-    // Test edge for individual lines
-    edge_Detect(x1, y1, x2, y2);
-    edge_Detect(x2, y2, x3, y3);
-    edge_Detect(x3, y3, x4, y4);
-    edge_Detect(x4, y4, x1, y1);
-    
+  
     
     // Printing polygon
     for (int y = 0; y < 500; y++)
@@ -90,7 +117,7 @@ void myInit()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0, 500, 0, 500);
+    gluOrtho2D(-480, 480, -600, 600);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -99,7 +126,7 @@ int main(int argc, char **argv)
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowPosition(0, 0);
-    glutInitWindowSize(500, 500);
+    glutInitWindowSize(600, 480);
     glutCreateWindow("Scanline Polyfill");
     myInit();
     glutDisplayFunc(myDisplay);

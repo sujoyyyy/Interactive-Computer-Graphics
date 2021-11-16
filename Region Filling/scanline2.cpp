@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 #include <GL/glut.h>
+#include<bits/stdc++.h>
 #define maxHt 800
 #define maxWd 600
 #define maxVer 10000
 
-FILE *fp;
-
-// Start from lower left corner
 typedef struct edgebucket
 {
 	int ymax; //max y-coordinate of edge
@@ -16,11 +14,7 @@ typedef struct edgebucket
 }EdgeBucket;
 
 typedef struct edgetabletup
-{
-	// the array will give the scanline number
-	// The edge table (ET) with edges entries sorted
-	// in increasing y and x of the lower end
-	
+{	
 	int countEdgeBucket; //no. of edgebuckets
 	EdgeBucket buckets[maxVer];
 }EdgeTableTuple;
@@ -40,33 +34,6 @@ void initEdgeTable()
 	ActiveEdgeTuple.countEdgeBucket = 0;
 }
 
-
-void printTuple(EdgeTableTuple *tup)
-{
-	int j;
-	
-	if (tup->countEdgeBucket)
-		printf("\nCount %d-----\n",tup->countEdgeBucket);
-		
-		for (j=0; j<tup->countEdgeBucket; j++)
-		{
-			printf(" %d+%.2f+%.2f",
-			tup->buckets[j].ymax, tup->buckets[j].xofymin,tup->buckets[j].slopeinverse);
-		}
-}
-
-void printTable()
-{
-	int i,j;
-	
-	for (i=0; i<maxHt; i++)
-	{
-		if (EdgeTable[i].countEdgeBucket)
-			printf("\nScanline %d", i);
-			
-		printTuple(&EdgeTable[i]);
-	}
-}
 
 
 /* Function to sort an array using insertion sort*/
@@ -98,8 +65,7 @@ void insertionSort(EdgeTableTuple *ett)
 
 void storeEdgeInTuple (EdgeTableTuple *receiver,int ym,int xm,float slopInv)
 {
-	// both used for edgetable and active edge table..
-	// The edge tuple sorted in increasing ymax and x of the lower end.
+
 	(receiver->buckets[(receiver)->countEdgeBucket]).ymax = ym;
 	(receiver->buckets[(receiver)->countEdgeBucket]).xofymin = (float)xm;
 	(receiver->buckets[(receiver)->countEdgeBucket]).slopeinverse = slopInv;
@@ -130,7 +96,6 @@ void storeEdgeInTable (int x1,int y1, int x2, int y2)
 		return;
 		
 	minv = (float)1.0/m;
-	printf("\nSlope string for %d %d & %d %d: %f",x1,y1,x2,y2,minv);
 	}
 	
 	if (y1>y2)
@@ -145,7 +110,7 @@ void storeEdgeInTable (int x1,int y1, int x2, int y2)
 		ymaxTS=y2;
 		xwithyminTS=x1;	
 	}
-	// the assignment part is done..now storage..
+
 	storeEdgeInTuple(&EdgeTable[scanline],ymaxTS,xwithyminTS,minv);
 	
 	
@@ -158,7 +123,6 @@ void removeEdgeByYmax(EdgeTableTuple *Tup,int yy)
 	{
 		if (Tup->buckets[i].ymax == yy)
 		{
-			printf("\nRemoved at %d",yy);
 			
 			for ( j = i ; j < Tup->countEdgeBucket -1 ; j++ )
 				{
@@ -186,12 +150,6 @@ void updatexbyslopeinv(EdgeTableTuple *Tup)
 
 void ScanlineFill()
 {
-	/* Follow the following rules:
-	1. Horizontal edges: Do not include in edge table
-	2. Horizontal edges: Drawn either on the bottom or on the top.
-	3. Vertices: If local max or min, then count twice, else count
-		once.
-	4. Either vertices at local minima or at local maxima are drawn.*/
 
 
 	int i, j, x1, ymax1, x2, ymax2, FillFlag = 0, coordCount;
@@ -209,7 +167,7 @@ void ScanlineFill()
 					ymax,EdgeTable[i].buckets[j].xofymin,
 					EdgeTable[i].buckets[j].slopeinverse);
 		}
-		printTuple(&ActiveEdgeTuple);
+
 		
 		// 2. Remove from AET those edges for
 		// which y=ymax (not involved in next scan line)
@@ -217,9 +175,6 @@ void ScanlineFill()
 		
 		//sort AET (remember: ET is presorted)
 		insertionSort(&ActiveEdgeTuple);
-		
-		printTuple(&ActiveEdgeTuple);
-		
 		//3. Fill lines on scan line y by using pairs of x-coords from AET
 		j = 0;
 		FillFlag = 0;
@@ -236,11 +191,6 @@ void ScanlineFill()
 				ymax1 = ActiveEdgeTuple.buckets[j].ymax;
 				if (x1==x2)
 				{
-				/* three cases can arrive-
-					1. lines are towards top of the intersection
-					2. lines are towards bottom
-					3. one line is towards top and other is towards bottom
-				*/
 					if (((x1==ymax1)&&(x2!=ymax2))||((x1!=ymax1)&&(x2==ymax2)))
 					{
 						x2 = x1;
@@ -296,8 +246,6 @@ void ScanlineFill()
 				glVertex2i(x2,i);
 				glEnd();
 				glFlush();		
-				
-				// printf("\nLine drawn from %d,%d to %d,%d",x1,i,x2,i);
 			}
 			
 		}
@@ -311,85 +259,83 @@ void ScanlineFill()
 }
 
 
-printf("\nScanline filling complete");
 
 }
 
 
-void myInit(void)
-{
 
-	glClearColor(1.0,1.0,1.0,0.0);
-	glMatrixMode(GL_PROJECTION);
-	
-	glLoadIdentity();
-	gluOrtho2D(0,maxHt,0,maxWd);
-	glClear(GL_COLOR_BUFFER_BIT);
-}
-
-void drawPolyDino()
+void drawPoly()
 {
 
 	glColor3f(1.0f,0.0f,0.0f);
 	int count = 0,x1,y1,x2,y2;
-	rewind(fp);
-	while(!feof(fp) )
+	int x[5]={-500,-300,-300,-500,-500};
+	int y[5]={300,300,200,200,300};
+	int i=0;
+	while(i<4)
 	{
-		count++;
-		if (count>2)
-		{
-			x1 = x2;
-			y1 = y2;
-			count=2;
-		}
-		if (count==1)
-		{
-			fscanf(fp, "%d,%d", &x1, &y1);
-		}
-		else
-		{
-			fscanf(fp, "%d,%d", &x2, &y2);
-			printf("\n%d,%d", x2, y2);
-			glBegin(GL_LINES);
-				glVertex2i( x1, y1);
-				glVertex2i( x2, y2);
-			glEnd();
-			storeEdgeInTable(x1, y1, x2, y2);//storage of edges in edge table.
-			
-			
-			glFlush();
-		}
+		x1=x[i];
+		x2=x[i+1];
+		y1=y[i];
+		y2=y[i+1];
+		glBegin(GL_LINES);
+		glVertex2i( x1, y1);
+		glVertex2i( x2, y2);
+		glEnd();
+		storeEdgeInTable(x1, y1, x2, y2);//storage of edges in edge table.
+		i++;
 	}
-		
+	glColor3f(1.0f,0.0f,0.0f);
+	int x_1[5]={-200,-100,-100,-200,-200};
+	int y_1[5]={300,300,-200,-200,300};
+	i=0;
+	x1=0;
+    y1=0;
+    x2=0;
+    y2=0;
+	while(i<4)
+	{
+		x1=x_1[i];
+		x2=x_1[i+1];
+		y1=y_1[i];
+		y2=y_1[i+1];
+		glBegin(GL_LINES);
+		glVertex2i( x1, y1);
+		glVertex2i( x2, y2);
+		glEnd();
+		storeEdgeInTable(x1, y1, x2, y2);//storage of edges in edge table.
+		glFlush();
+		i++;
+	}
 		
 }
 
-void drawDino(void)
+void display(void)
 {
 	initEdgeTable();
-	drawPolyDino();
-	printf("\nTable");
-	printTable();
-	
+	drawPoly();
 	ScanlineFill();//actual calling of scanline filling..
 }
 
+void myInit(void)
+{
+
+	glClearColor(0.0,0.0,0.0,0.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-maxHt,maxHt,-maxWd,maxWd);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
 int main(int argc, char** argv)
 {
-	fp=fopen ("file.txt","r");
-	if ( fp == NULL )
-	{
-		printf( "Could not open file" ) ;
-		return 0;
-	}
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(maxHt,maxWd);
 	glutInitWindowPosition(100, 150);
-	glutCreateWindow("Scanline filled dinosaur");
+	glutCreateWindow("Scanline fill");
 	myInit();
-	glutDisplayFunc(drawDino);
+	glutDisplayFunc(display);
 	glutMainLoop();
-	fclose(fp);
     return 0;
 }

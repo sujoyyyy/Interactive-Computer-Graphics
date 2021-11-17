@@ -241,37 +241,6 @@ void init()
 	gluOrtho2D(0.0, Size - 1, 0.0, Size - 1);
 }
 
-void GenerateRandomSimplePg(Pg &G, int M)
-{
-	Point P;
-	G.pts.clear();
-	for (int i = 0; i < M; ++i)
-	{
-		bool flag;
-		do
-		{
-			P.x = rand() % Size;
-			P.y = rand() % Size;
-			flag = true;
-			for (int j = 1; j < i - 1; ++j)
-				if (segmentsIntersect(G.pts[j - 1], G.pts[j], G.pts[i - 1], P))
-				{
-					flag = false;
-					break;
-				}
-			if (flag && i == M - 1)
-			{
-				for (int j = 2; j < i; ++j)
-					if (segmentsIntersect(G.pts[j - 1], G.pts[j], P, G.pts[0]))
-					{
-						flag = false;
-						break;
-					}
-			}
-		} while (!flag);
-		G.pts.push_back(P);
-	}
-}
 
 void KeyboardAction(unsigned char key, int x, int y)
 {
@@ -282,12 +251,7 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_POINT_SMOOTH);
-
 	Pg pyclip, py;
-
-	//GenerateRandomSimplePg(pyclip, 4);
-	//GenerateRandomSimplePg(py, 4);
-
 	Point p1, p2, p3, p4;
 	p1.x = 553, p1.y = 495;
 	p2.x = 351, p2.y = 175;
@@ -297,7 +261,6 @@ void display()
 	pyclip.pts.push_back(p2);
 	pyclip.pts.push_back(p3);
 	pyclip.pts.push_back(p4);
-
 	Point p5, p6, p7, p8;
 	p5.x = 390, p5.y = 424;
 	p6.x = 579, p6.y = 585;
@@ -321,7 +284,6 @@ void display()
 	py.drawPgLine(a);
 	pyclip.drawPgLine(b);
 	weilerAtherton(pyclip, py);
-
 	glFlush();
 }
 
@@ -334,7 +296,6 @@ int main(int argc, char **argv)
 	glutInitWindowSize(Size, Size);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Weiler-Atherton Clipping Algorithm");
-
 	glutKeyboardFunc(KeyboardAction);
 	glutDisplayFunc(display);
 

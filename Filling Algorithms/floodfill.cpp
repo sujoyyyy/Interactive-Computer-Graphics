@@ -30,7 +30,7 @@ void display()
 {   
     glClearColor(0.0, 0.0,0.0, 1.0);   
     glClear(GL_COLOR_BUFFER_BIT);   
-    drawPolygon(150,150,300,300);   
+    drawPolygon(150,150,400,400);   
     glFlush();   
 }   
 void floodfill4(int x,int y,float oldcolor[3],float newcolor[3])   

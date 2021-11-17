@@ -9,8 +9,8 @@ int p = 10;
 int q = 4;
 int px_cordinates[10] = { 0,250,250,170,170,100,100,200,250,0};
 int py_cordinates[10] = { -100,-100,70,70,-50,-50,400,250,450,450 };
-int qx_cordinates[6] = { 100,300,450,300,100,-50 };
-int qy_cordinates[6] = { 0,0,150,350,350,0 };
+int qx_cordinates[6] = { 450,300,100,-50 };
+int qy_cordinates[6] = { 150,350,350,0 };
 void clip();
 void init(void)
 {
@@ -39,18 +39,20 @@ int main(int argc, char** argv)
 
 void clip()
 {
-	glColor3f(0, 0, 1);
+	
 	glPointSize(3);
 	int i;
 	glBegin(GL_LINE_LOOP);
 	for (i = 0;i < q;i++)
 	{
+		glColor3f(0, 0, 1);
 		glVertex2f(qx_cordinates[i], qy_cordinates[i]);
 	}
 	glEnd();
 	glBegin(GL_LINE_LOOP);
 	for (i = 0;i < p;i++)
 	{
+		glColor3f(0, 1, 0);
 		glVertex2f(px_cordinates[i], py_cordinates[i]);
 	}
 	glEnd();
@@ -68,7 +70,7 @@ void clip()
 	for (i = 0;i < q;i++)
 	{
 		//printf("1\n");
-		 cnt = 0;
+		cnt = 0;
 		if (i == q - 1)
 		{
 			q1x = qx_cordinates[q - 1];
@@ -112,7 +114,6 @@ void clip()
 				tempx[cnt] = p2x;
 				tempy[cnt] = p2y;
 				cnt += 1;
-				//printf("\n");
 			}
 			else if (pos1 >= 0 && pos2<=0)
 			{

@@ -7,8 +7,10 @@
 int x;
 int y;
 int n = 4;
+// int x_cordinates[4] = {-300,300,300,-300};
+// int y_cordinates[4] = {-200,-200,200,200};
 int x_cordinates[4] = {-300,300,300,-300};
-int y_cordinates[4] = {-200,-200,200,200};
+int y_cordinates[4] = {200,200,-200,-200};
 void point_position();
 
 void init(void)
